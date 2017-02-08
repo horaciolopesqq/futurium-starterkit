@@ -35,11 +35,9 @@
             <property name="drush.make.root" value="${phing.project.tmp.dir}/futurium" />
         </phingcall>
 
-<!--
         <exec command='cp -R ${phing.project.tmp.dir}/futurium/sites/all/* ${futurium.profile.dir}'
               passthru="true"
               checkreturn="true" />
--->
 
     </target>
 
@@ -92,7 +90,9 @@
 
     </target>
 
-
-
+    <!-- Symlink the source folders for easy development. -->
+    <target name="link-dev-resources">
+      <!-- Screw this :) -->
+    </target>
 
 </project>
