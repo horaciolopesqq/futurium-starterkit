@@ -1,9 +1,98 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="My subsite" default="help">
+
+    <property file="build.futurium.properties" />
+
     <target
         name="build-custom"
-        description="You can use this target to perform custom build steps for your subsite. This target is part of both build-dev and build-dist."
-    >
+        description="You can use this target to perform custom build steps for your subsite. This target is part of both build-dev and build-dist.">
         <echo message="Running custom build" />
     </target>
+
+    <target
+        name="build-dev"
+        description="Build a local development version of the subsite."
+        depends="
+            install-build-dependencies,
+            delete-dev,
+            make-dev,
+            link-dev-resources,
+            install-dev-dependencies,
+            link-behat,
+            setup-behat,
+            update-htaccess,
+            setup-files-directory,
+            setup-php-codesniffer,
+            download-development-modules,
+            build-futurium"
+    />
+
+    <target
+        name="make-futurium">
+        <echo msg="Make the profile." />
+        <phingcall target="drush-make-no-core">
+            <property name="drush.make.target.file" value="lib/profiles/futurium/futurium.make" />
+            <property name="drush.make.root" value="${phing.project.tmp.dir}/futurium" />
+        </phingcall>
+
+<!--
+        <exec command='cp -R ${phing.project.tmp.dir}/futurium/sites/all/* ${futurium.profile.dir}'
+              passthru="true"
+              checkreturn="true" />
+-->
+
+    </target>
+
+    <target
+        name="build-futurium"
+        description="Get modules and Futurium Profile.">
+
+        <if>
+            <not><available file="${futurium.profile.dir}" type="dir" property="dir.Exists" /></not>
+            <then>
+                <!-- Set revision to HEAD if not already defined -->
+                <property name="repo.revision" value="HEAD" override="false"/>
+
+                <echo>Cloning ${futurium.profile.repository} ${futurium.profile.branch} into ${futurium.profile.dir}</echo>
+                <!-- The [`gitclone` task](http://www.phing.info/docs/guide/stable/chapters/appendixes/AppendixC-OptionalTasks.html#GitCloneTask)
+                     does not seem to work. Use exec instead. -->
+
+                <gitclone
+                        gitPath="git"
+                        repository="${futurium.profile.repository}"
+                        targetPath="${futurium.profile.dir}" />
+                <gitpull
+                        repository="${futurium.profile.dir}"
+                        source="origin" refspec="${futurium.profile.branch}"
+                        strategy="recursive" keep="true"
+                        force="true" quiet="true" norebase="true" />
+            </then>
+            <else>
+                <echo msg="Pulling changes from the Futurium Profile repository." />
+                <exec command="git checkout ${futurium.profile.branch}" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
+                <exec command="git pull" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
+            </else>
+        </if>
+
+        <phingcall target="make-futurium"></phingcall>
+
+        <echo msg="Clearing profiles folder." />
+        <exec command="rm -rf ./platform/profiles/*" />
+
+        <echo msg="Copying profile from ${futurium.profile.dir} into platform." />
+        <if>
+            <not><available file="./platform/profiles/futurium" type="dir" property="dir.Exists" /></not>
+            <then>
+                <exec command="mkdir -p ./platform/profiles/futurium" passthru="true" checkreturn="true" />
+            </then>
+        </if>
+        <exec command='cp -R ${futurium.profile.dir}/* ./platform/profiles/futurium '
+              passthru="true"
+              checkreturn="true" />
+
+    </target>
+
+
+
+
 </project>
