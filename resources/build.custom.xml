@@ -16,7 +16,6 @@
             install-build-dependencies,
             delete-dev,
             make-dev,
-            link-dev-resources,
             install-dev-dependencies,
             link-behat,
             setup-behat,
@@ -79,20 +78,15 @@
 
         <echo msg="Copying profile from ${futurium.profile.dir} into platform." />
         <if>
-            <not><available file="./platform/profiles/futurium" type="dir" property="dir.Exists" /></not>
+            <not><available file="./platform/profiles" type="dir" property="dir.Exists" /></not>
             <then>
-                <exec command="mkdir -p ./platform/profiles/futurium" passthru="true" checkreturn="true" />
+                <exec command="mkdir -p ./platform/profiles" passthru="true" checkreturn="true" />
             </then>
         </if>
-        <exec command='cp -R ${futurium.profile.dir}/* ./platform/profiles/futurium '
-              passthru="true"
-              checkreturn="true" />
+        <exec command='ln -s ${project.basedir}/${futurium.profile.dir} ${project.basedir}/platform/profiles/futurium '
+            passthru="true"
+            checkreturn="true" />
 
-    </target>
-
-    <!-- Symlink the source folders for easy development. -->
-    <target name="link-dev-resources">
-      <!-- Screw this :) -->
     </target>
 
 </project>
