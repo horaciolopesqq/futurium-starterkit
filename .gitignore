@@ -11,6 +11,7 @@ tests/behat.yml
 
 # Ignore build artifacts.
 bin/
+lib/
 build/
 platform/
 tmp/
