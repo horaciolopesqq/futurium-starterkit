@@ -27,20 +27,6 @@
     />
 
     <target
-        name="make-futurium">
-        <echo msg="Make the profile." />
-        <phingcall target="drush-make-no-core">
-            <property name="drush.make.target.file" value="lib/profiles/futurium/futurium.make" />
-            <property name="drush.make.root" value="${phing.project.tmp.dir}/futurium" />
-        </phingcall>
-
-        <exec command='cp -R ${phing.project.tmp.dir}/futurium/sites/all/* ${futurium.profile.dir}'
-              passthru="true"
-              checkreturn="true" />
-
-    </target>
-
-    <target
         name="build-futurium"
         description="Get modules and Futurium Profile.">
 
@@ -71,7 +57,15 @@
             </else>
         </if>
 
-        <phingcall target="make-futurium"></phingcall>
+        <echo msg="Make the profile." />
+        <phingcall target="drush-make-no-core">
+            <property name="drush.make.target.file" value="lib/profiles/futurium/futurium.make" />
+            <property name="drush.make.root" value="${phing.project.tmp.dir}/futurium" />
+        </phingcall>
+
+        <exec command='cp -R ${phing.project.tmp.dir}/futurium/sites/all/* ${futurium.profile.dir}'
+              passthru="true"
+              checkreturn="true" />
 
         <echo msg="Clearing profiles folder." />
         <exec command="rm -rf ./platform/profiles/*" />
