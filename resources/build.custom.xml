@@ -16,7 +16,6 @@
             install-build-dependencies,
             delete-dev,
             make-dev,
-            install-dev-dependencies,
             link-behat,
             setup-behat,
             update-htaccess,
@@ -81,6 +80,32 @@
             passthru="true"
             checkreturn="true" />
 
+        <!-- <echo msg="Clearing temp folder." />
+        <exec command="rm -rf ${phing.project.tmp.dir}/futurium" /> -->
+
+    </target>
+
+    <!-- Rebuild node access. -->
+    <target name="rebuild-node-access">
+        <echo msg="Rebuilding node_access table." />
+        <drush
+            command="php-eval"
+            assume="yes"
+            root="${platform.build.dir}"
+            bin="${drush.bin}"
+            verbose="${drush.verbose}">
+            <param>"node_access_rebuild()"</param>
+        </drush>
+
+        <echo msg="Force reverting all features." />
+        <drush
+            command="fra"
+            assume="yes"
+            root="${platform.build.dir}"
+            bin="${drush.bin}"
+            verbose="${drush.verbose}">
+            <option name="force"></option>
+        </drush>
     </target>
 
 </project>
