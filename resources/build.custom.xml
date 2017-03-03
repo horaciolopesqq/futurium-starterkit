@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="My subsite" default="help">
 
-    <property file="build.futurium.properties" />
+    <property file="build.properties.futurium" />
 
     <target
         name="build-custom"

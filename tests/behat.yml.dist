@@ -12,7 +12,9 @@ default:
   extensions:
     Behat\MinkExtension:
       goutte: ~
-      selenium2: ~
+      selenium2:
+        browser: '${selenium.browser}'
+        capabilities: ${selenium.capabilities}
       javascript_session: 'selenium2'
       base-url: '${behat.base_url}'
     Drupal\DrupalExtension:
