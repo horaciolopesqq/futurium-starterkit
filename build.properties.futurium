@@ -1,0 +1,14 @@
+# Site information.
+subsite.name = Futurium ISA
+subsite.install.modules =
+
+# Platform.
+platform.profile.name = futurium
+
+# Futurium profile.
+futurium.profile.dir = lib/profiles/futurium
+futurium.profile.branch = master
+futurium.profile.repository = https://github.com/cnect-webdev/futurium-core.git
+
+selenium.browser = chrome
+selenium.capabilities = {"browserName": "chrome", "browser": "chrome", "proxy":{"proxyType":"direct"}}
