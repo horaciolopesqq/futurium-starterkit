@@ -1,0 +1,19 @@
+composer.bin = /usr/local/bin/composer.phar
+
+platform.profile.name = futurium
+
+# Site information.
+subsite.name = Futurium ISA
+subsite.install.modules =
+
+# Database settings.
+drupal.db.name = fsk
+drupal.db.user = root
+drupal.db.password =
+drupal.db.host = 127.0.0.1
+drupal.db.port = 3306
+
+# Admin user.
+drupal.admin.username = admin
+drupal.admin.password = pass
+
