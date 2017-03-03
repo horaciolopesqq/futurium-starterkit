@@ -16,6 +16,9 @@
             install-build-dependencies,
             delete-dev,
             make-dev,
+            link-dev-resources,
+            install-dev-dependencies,
+            link-behat,
             setup-behat,
             update-htaccess,
             setup-files-directory,
@@ -66,7 +69,7 @@
               checkreturn="true" />
 
         <echo msg="Clearing profiles folder." />
-        <exec command="rm -rf ./platform/profiles/*" />
+        <!--<exec command="rm -rf ./platform/profiles/*" />-->
 
         <echo msg="Copying profile from ${futurium.profile.dir} into platform." />
         <if>
