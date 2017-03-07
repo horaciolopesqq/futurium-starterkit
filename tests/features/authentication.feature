@@ -22,13 +22,18 @@ Scenario: All main pages are visible
 
 Scenario: All main pages are accessible for anonymous, except the stats page
   Given I am not logged in
-  When I visit "futures"
-  Then I should not see the text "Access denied"
-  When I visit "ideas"
-  Then I should not see the text "Access denied"
-  When I visit "library"
-  Then I should not see the text "Access denied"
-  When I visit "events"
-  Then I should not see the text "Access denied"
-  When I visit "analytics"
-  Then I should see the text "Access denied"
+  Given I am on the homepage
+  Then I should see the text "Futures" in the "main_menu" region
+  Then I should see the text "Ideas" in the "main_menu" region
+  Then I should see the text "Library" in the "main_menu" region
+  Then I should see the text "Events" in the "main_menu" region
+  And I should not see the text "Stats" in the "main_menu" region
+
+@api
+Scenario: Administrators can see the stats page
+  Given I am logged in as a user with the "administrator" role
+  Given I am on the homepage
+  Then I should see the text "Stats" in the "main_menu" region
+  And I visit "/analytics"
+  Then I should see the heading "Site analytics" in the "content" region
+
