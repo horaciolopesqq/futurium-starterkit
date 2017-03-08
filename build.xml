@@ -2,7 +2,6 @@
 
 <project name="My subsite" default="help">
 
-    <property file="build.properties.futurium" />
     <property file="build.properties.local" />
     <property file="build.properties" />
     <property file="build.properties.dist" />

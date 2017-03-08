@@ -28,6 +28,19 @@
     />
 
     <target
+        name="build"
+        description="Build a local development version of the subsite."
+        depends="
+            install-build-dependencies,
+            link-behat,
+            setup-behat,
+            update-htaccess,
+            setup-files-directory,
+            setup-php-codesniffer,
+            build-futurium"
+    />
+
+    <target
         name="build-futurium"
         description="Get modules and Futurium Profile.">
 

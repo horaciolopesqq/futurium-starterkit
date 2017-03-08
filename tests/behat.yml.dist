@@ -1,6 +1,8 @@
 default:
   suites:
     default:
+      paths:
+        - '${project.basedir}/${futurium.profile.dir}'
       contexts:
         - FeatureContext
         - Drupal\DrupalExtension\Context\DrushContext
@@ -22,6 +24,9 @@ default:
       blackbox: ~
       drupal:
         drupal_root: '${platform.build.dir}'
+      region_map:
+        main_menu: 'nav[role="navigation"] .menu.nav'
+        content: 'section.main'
       selectors:
         message_selector: '.messages'
         error_message_selector: '.messages.error'
