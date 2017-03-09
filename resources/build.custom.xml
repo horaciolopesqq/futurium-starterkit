@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="My subsite" default="help">
 
-    <property file="build.properties.futurium" />
-
     <target
         name="build-custom"
         description="You can use this target to perform custom build steps for your subsite. This target is part of both build-dev and build-dist.">
@@ -32,6 +30,7 @@
         description="Build a local development version of the subsite."
         depends="
             install-build-dependencies,
+            delete-dev,
             link-behat,
             setup-behat,
             update-htaccess,
@@ -51,8 +50,6 @@
                 <property name="repo.revision" value="HEAD" override="false"/>
 
                 <echo>Cloning ${futurium.profile.repository} ${futurium.profile.branch} into ${futurium.profile.dir}</echo>
-                <!-- The [`gitclone` task](http://www.phing.info/docs/guide/stable/chapters/appendixes/AppendixC-OptionalTasks.html#GitCloneTask)
-                     does not seem to work. Use exec instead. -->
 
                 <gitclone
                         gitPath="git"
@@ -65,9 +62,24 @@
                         force="true" quiet="true" norebase="true" />
             </then>
             <else>
-                <echo msg="Pulling changes from the Futurium Profile repository." />
-                <!--<exec command="git checkout ${futurium.profile.branch}" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />-->
-                <exec command="git pull" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
+                <echo msg="Checking if remote branch exists..." />
+                <exec command="git ls-remote --heads ${futurium.profile.repository} ${futurium.profile.branch}" outputProperty="remote.Exists" />
+                <if>
+                    <or>
+                        <not><isset property="remote.Exists" /></not>
+                        <and>
+                            <isset property="remote.Exists" />
+                            <equals arg1="${remote.Exists}" arg2="" />
+                        </and>
+                    </or>
+                    <then>
+                        <echo msg="Pulling changes from the Futurium Profile repository." />
+                        <exec command="git pull" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
+                    </then>
+                    <else>
+                        <echo msg="The current branch doesn't exist on remote, skipping." level="warning" />
+                    </else>
+                </if>
             </else>
         </if>
 
@@ -81,9 +93,6 @@
               passthru="true"
               checkreturn="true" />
 
-        <echo msg="Clearing profiles folder." />
-        <!--<exec command="rm -rf ./platform/profiles/*" />-->
-
         <echo msg="Copying profile from ${futurium.profile.dir} into platform." />
         <if>
             <not><available file="./platform/profiles" type="dir" property="dir.Exists" /></not>
@@ -95,8 +104,8 @@
             passthru="true"
             checkreturn="true" />
 
-        <!-- <echo msg="Clearing temp folder." />
-        <exec command="rm -rf ${phing.project.tmp.dir}/futurium" /> -->
+       <echo msg="Clearing temp folder." />
+       <exec command="rm -rf ${phing.project.tmp.dir}/futurium" />
 
     </target>
 
