@@ -66,7 +66,7 @@
             </then>
             <else>
                 <echo msg="Pulling changes from the Futurium Profile repository." />
-                <exec command="git checkout ${futurium.profile.branch}" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
+                <!--<exec command="git checkout ${futurium.profile.branch}" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />-->
                 <exec command="git pull" dir="${futurium.profile.dir}" passthru="true" checkreturn="true" />
             </else>
         </if>
