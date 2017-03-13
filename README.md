@@ -92,12 +92,12 @@ All Behat related files are located in the `tests/` folder.
 
 ### 1. Download the project
 
-Our project is called `ec-europa/futurium-isa` and is hosted on our
+Our project is called `cnect-webdev/futurium-starterkit` and is hosted on our
 Github:
 
 ```
-$ git clone https://github.com/ec-europa/futurium-isa.git
-$ cd futurium-isa
+$ git clone https://github.com/cnect-webdev/futurium-starterkit.git
+$ cd futurium-starterkit
 ```
 
 ### 2. Install dependencies
@@ -158,7 +158,7 @@ Now that our configuration is ready, we can build our project.
 
 * As an <b>external party</b> willing to use Futurium and store it on your your own repository, use:
 ```
-$ ./bin/phing build-futurium
+$ ./bin/phing build
 ```
 
 * As a developer <b>inside European Commission</b> use:
@@ -179,7 +179,7 @@ This will:
 
 * As an <b>external party</b> willing to use Futurium and store it on your your own repository, use:
 ```
-$ ./bin/phing install-futurium
+$ ./bin/phing install
 ```
 
 * As a developer <b>inside European Commission</b> use:
@@ -216,7 +216,7 @@ $ git remote -v
 Delete the origin remote from futurium-isa before adding it as upstream:
 ```
 $ git remote rm origin
-$ git remote add upstream https://github.com/ec-europa/futurium-isa.git
+$ git remote add upstream https://github.com/cnect-webdev/futurium-starterkit.git
 $ git remote add origin https://yourownrepo
 ```
 Finally add your own origin repository:
