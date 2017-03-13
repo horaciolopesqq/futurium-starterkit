@@ -123,15 +123,4 @@
         </if>
     </target>
 
-    <target name="build"
-        description="Build a version of the subsite intended to distribute as a release package."
-        depends="
-            install-build-dependencies,
-            delete-dist,
-            make-dist,
-            copy-dist-resources,
-            install-dist-dependencies,
-            build-custom">
-    </target>
-
 </project>
