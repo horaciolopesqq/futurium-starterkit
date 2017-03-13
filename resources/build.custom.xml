@@ -30,7 +30,6 @@
             install-build-dependencies,
             delete-dev,
             make-dev,
-            link-dev-resources,
             update-htaccess,
             setup-files-directory,
             setup-php-codesniffer,
