@@ -2,43 +2,6 @@
 <project name="My subsite" default="help">
 
     <target name="build-custom"
-        description="You can use this target to perform custom build steps for your subsite. This target is part of both build-dev and build-dist.">
-        <echo message="Running custom build" />
-    </target>
-
-    <target name="build-dev"
-        description="Build a local development version of the subsite."
-        depends="
-            install-build-dependencies,
-            delete-dev,
-            make-dev,
-            link-dev-resources,
-            install-dev-dependencies,
-            link-behat,
-            setup-behat,
-            update-htaccess,
-            setup-files-directory,
-            setup-php-codesniffer,
-            download-development-modules,
-            regenerate-settings,
-            build-futurium"
-    />
-
-    <target name="build"
-        description="Build a local development version of the subsite."
-        depends="
-            install-build-dependencies,
-            delete-dev,
-            make-dev,
-            link-behat,
-            update-htaccess,
-            setup-files-directory,
-            setup-php-codesniffer,
-            regenerate-settings,
-            build-futurium"
-    />
-
-    <target name="build-futurium"
         description="Get modules and Futurium Profile.">
 
         <if>
