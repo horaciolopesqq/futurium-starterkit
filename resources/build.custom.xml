@@ -20,6 +20,7 @@
             setup-files-directory,
             setup-php-codesniffer,
             download-development-modules,
+            regenerate-settings,
             build-futurium"
     />
 
@@ -28,11 +29,12 @@
         depends="
             install-build-dependencies,
             delete-dev,
-            link-behat,
-            setup-behat,
+            make-dev,
+            link-dev-resources,
             update-htaccess,
             setup-files-directory,
             setup-php-codesniffer,
+            regenerate-settings,
             build-futurium"
     />
 
