@@ -14,9 +14,7 @@ default:
   extensions:
     Behat\MinkExtension:
       goutte: ~
-      selenium2:
-        browser: '${selenium.browser}'
-        capabilities: ${selenium.capabilities}
+      selenium2: ~
       javascript_session: 'selenium2'
       base-url: '${behat.base_url}'
     Drupal\DrupalExtension:
@@ -24,9 +22,7 @@ default:
       blackbox: ~
       drupal:
         drupal_root: '${platform.build.dir}'
-      region_map:
-        main_menu: 'nav[role="navigation"] .menu.nav'
-        content: 'section.main'
+      region_map: ~
       selectors:
         message_selector: '.messages'
         error_message_selector: '.messages.error'
@@ -39,3 +35,6 @@ default:
         binary: '${drush.bin}'
   formatters:
     ${behat.formatter.name}: ~
+imports:
+  - behat.yml.futurium
+  - behat.yml.local

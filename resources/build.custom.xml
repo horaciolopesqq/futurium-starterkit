@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="My subsite" default="help">
 
-    <target
-        name="build-custom"
+    <target name="build-custom"
         description="You can use this target to perform custom build steps for your subsite. This target is part of both build-dev and build-dist.">
         <echo message="Running custom build" />
     </target>
 
-    <target
-        name="build-dev"
+    <target name="build-dev"
         description="Build a local development version of the subsite."
         depends="
             install-build-dependencies,
@@ -25,8 +23,7 @@
             build-futurium"
     />
 
-    <target
-        name="build"
+    <target name="build"
         description="Build a local development version of the subsite."
         depends="
             install-build-dependencies,
@@ -39,8 +36,7 @@
             build-futurium"
     />
 
-    <target
-        name="build-futurium"
+    <target name="build-futurium"
         description="Get modules and Futurium Profile.">
 
         <if>
@@ -106,7 +102,20 @@
 
        <echo msg="Clearing temp folder." />
        <exec command="rm -rf ${phing.project.tmp.dir}/futurium" />
+    </target>
 
+    <!-- Download the platform. -->
+    <target name="download-platform">
+        <drush
+            command="dl"
+            assume="yes"
+            bin="${drush.bin}"
+            pipe="yes"
+            verbose="${drush.verbose}">
+            <param>drupal-${drupal.version}</param>
+            <option name="destination">${project.basedir}</option>
+            <option name="drupal-project-rename">${drupal.installation_path}</option>
+        </drush>
     </target>
 
     <!-- Rebuild node access. -->
@@ -130,6 +139,23 @@
             verbose="${drush.verbose}">
             <option name="force"></option>
         </drush>
+    </target>
+
+    <!-- Make the development version of the subsite. -->
+    <target name="make-dev" depends="download-platform">
+        <if>
+            <available file="${subsite.make}" type="file" />
+                <then>
+                    <echo msg="Make the subsite." />
+                    <phingcall target="drush-make-no-core">
+                        <property name="drush.make.target.file" value="${subsite.make}" />
+                        <property name="drush.make.root" value="${platform.build.dir}" />
+                    </phingcall>
+                </then>
+            <else>
+                <echo msg="No make file found. Skipping..." />
+            </else>
+        </if>
     </target>
 
 </project>

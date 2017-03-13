@@ -1,0 +1,7 @@
+default:
+  extensions:
+    Drupal\DrupalExtension:
+      region_map:
+        messages: .alert
+        menu: 'nav[role="navigation"] .menu.nav'
+        content: 'section.main'
