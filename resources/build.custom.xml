@@ -69,20 +69,6 @@
        <exec command="rm -rf ${phing.project.tmp.dir}/futurium" />
     </target>
 
-    <!-- Download the platform. -->
-    <target name="download-platform">
-        <drush
-            command="dl"
-            assume="yes"
-            bin="${drush.bin}"
-            pipe="yes"
-            verbose="${drush.verbose}">
-            <param>drupal-${drupal.version}</param>
-            <option name="destination">${project.basedir}</option>
-            <option name="drupal-project-rename">${drupal.installation_path}</option>
-        </drush>
-    </target>
-
     <!-- Rebuild node access. -->
     <target name="rebuild-node-access">
         <echo msg="Rebuilding node_access table." />
@@ -104,23 +90,6 @@
             verbose="${drush.verbose}">
             <option name="force"></option>
         </drush>
-    </target>
-
-    <!-- Make the development version of the subsite. -->
-    <target name="make-dev" depends="download-platform">
-        <if>
-            <available file="${subsite.make}" type="file" />
-                <then>
-                    <echo msg="Make the subsite." />
-                    <phingcall target="drush-make-no-core">
-                        <property name="drush.make.target.file" value="${subsite.make}" />
-                        <property name="drush.make.root" value="${platform.build.dir}" />
-                    </phingcall>
-                </then>
-            <else>
-                <echo msg="No make file found. Skipping..." />
-            </else>
-        </if>
     </target>
 
 </project>
