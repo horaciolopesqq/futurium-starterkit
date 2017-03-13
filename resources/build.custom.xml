@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="My subsite" default="help">
 
+    <target name="build"
+        description="Build a version of the subsite intended to distribute as a release package."
+        depends="
+            install-build-dependencies,
+            delete-dist,
+            make-dist,
+            copy-dist-resources,
+            install-dist-dependencies,
+            build-custom"
+    />
+
     <target name="build-custom"
         description="Get modules and Futurium Profile.">
 
