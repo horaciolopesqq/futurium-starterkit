@@ -1,6 +1,0 @@
-default:
-  extensions:
-    Behat\MinkExtension:
-      selenium2:
-        browser: 'chrome'
-        capabilities: {"browserName": "chrome", "browser": "chrome", "proxy":{"proxyType":"direct"}}
