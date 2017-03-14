@@ -1,4 +1,4 @@
-# Futurium Subsite Starterkit
+# Futurium ISA Starterkit
 
 ```
   ███████╗██╗   ██╗████████╗██╗   ██╗██████╗ ██╗██╗   ██╗███╗   ███╗    ██╗███████╗ █████╗
@@ -9,8 +9,7 @@
   ╚═╝      ╚═════╝    ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝ ╚═════╝ ╚═╝     ╚═╝    ╚═╝╚══════╝╚═╝  ╚═╝
 ```
 
-This is a starting point for creating new instances of the futurium ISA project
-from the European Commission.
+This is a starting point for creating new instances of the Futurium ISA project.
 
 ## Features
 
@@ -156,12 +155,7 @@ by listing them as below in the <b>drupal.development.modules</b> param.
 
 Now that our configuration is ready, we can build our project.
 
-* As an <b>external party</b> willing to use Futurium and store it on your your own repository, use:
-```
-$ ./bin/phing build
-```
-
-* As a developer <b>inside European Commission</b> use:
+*
 ```
 $ ./bin/phing build-dev
 ```
@@ -205,27 +199,3 @@ point its webroot to this folder.
 If you intend to run Behat tests then you should put the base URL you assign to
 your website in the `build.properies.local` file for the `behat.base_url`
 property. See the example above.
-
-
-### 7. Set up your own repository
-
-List all remotes:
-```
-$ git remote -v
-```
-Delete the origin remote from futurium-isa before adding it as upstream:
-```
-$ git remote rm origin
-$ git remote add upstream https://github.com/cnect-webdev/futurium-starterkit.git
-$ git remote add origin https://yourownrepo
-```
-Finally add your own origin repository:
-```
-$ git remote add origin https://yourownrepo
-```
-From there you are able to commit code into your own repository:
-```
-$ git add .
-$ git commit
-$ git push
-```
